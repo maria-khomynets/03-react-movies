@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import css from "./MovieModal.module.css";
 import { createPortal } from "react-dom";
 interface MovieModalProps {
@@ -5,8 +6,31 @@ interface MovieModalProps {
   onClose: () => void;
 }
 export default function MovieModal({ movie, onClose }: MovieModalProps) {
+  const handleBackdropClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (event.target === event.currentTarget) {
+      onClose();
+    }
+  };
+  useEffect(() => {
+    const handleKeyDown = (evn: KeyboardEvent) => {
+      if (evn.key === "Escape") {
+        onClose();
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "";
+    };
+  }, [onClose]);
   return createPortal(
-    <div className={css.backdrop} role="dialog" aria-modal="true">
+    <div
+      className={css.backdrop}
+      onClick={handleBackdropClick}
+      role="dialog"
+      aria-modal="true"
+    >
       <div className={css.modal}>
         <button
           onClick={onClose}
