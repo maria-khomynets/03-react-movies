@@ -4,6 +4,10 @@ interface SearchBarProps {
 }
 
 export default function SearchBar({ onSubmit }: SearchBarProps) {
+  const handleSubmit = (formData: FormData) => {
+    const username = formData.get("username") as string;
+    console.log("Name:", username);
+  };
   return (
     <header className={styles.header}>
       <div className={styles.container}>
@@ -16,13 +20,13 @@ export default function SearchBar({ onSubmit }: SearchBarProps) {
           Powered by TMDB
         </a>
 
-        <form className={styles.form}>
+        <form action={handleSubmit} className={styles.form}>
           <input
             className={styles.input}
             type="text"
             name="query"
             autoComplete="off"
-            placeholder="Search movies...",
+            placeholder="Search movies..."
             autoFocus
           />
 
