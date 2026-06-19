@@ -5,7 +5,7 @@ interface MoviesHttpResponse {
   results: Movie[];
 }
 
-const tmdbToken = `Bearer ${import.meta.env.VITE_TMDB_TOKEN}`;
+const token = `Bearer ${import.meta.env.VITE_TMDB_TOKEN}`;
 
 export async function fetchMovies(search: string): Promise<Movie[]> {
   const parameters = {
@@ -13,7 +13,7 @@ export async function fetchMovies(search: string): Promise<Movie[]> {
       query: search,
     },
     headers: {
-      Authorization: tmdbToken,
+      Authorization: token,
       accept: "application/json",
     },
   };
