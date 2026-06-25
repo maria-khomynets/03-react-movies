@@ -14,7 +14,6 @@ import type { ReactPaginateProps } from "react-paginate";
 import type { ComponentType } from "react";
 
 type ModuleWithDefault<T> = { default: T };
-
 const ReactPaginate = (
   ReactPaginateModule as unknown as ModuleWithDefault<
     ComponentType<ReactPaginateProps>
