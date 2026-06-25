@@ -3,20 +3,14 @@ import type { Movie } from "../types/movie";
 
 interface MoviesHttpResponse {
   results: Movie[];
-  page: number;
-  total_pages: number;
 }
 
 const token = `Bearer ${import.meta.env.VITE_TMDB_TOKEN}`;
 
-export async function fetchMovies(
-  search: string,
-  currentPage: number = 1,
-): Promise<MoviesHttpResponse> {
+export async function fetchMovies(search: string): Promise<Movie[]> {
   const parameters = {
     params: {
       query: search,
-      page: currentPage,
     },
     headers: {
       Authorization: token,
@@ -28,5 +22,5 @@ export async function fetchMovies(
     parameters,
   );
 
-  return response.data;
+  return response.data.results;
 }
